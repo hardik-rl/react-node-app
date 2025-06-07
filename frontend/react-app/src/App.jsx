@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import PaymentList from "./components/Payment";
 import DonationCard from "./components/DonationCard";
+import ResponsiveAppBar from "./components/Header";
 
 function App() {
   const [amount, setAmount] = useState("");
@@ -73,7 +74,8 @@ function App() {
 
 
   return (
-    <div style={{ padding: "50px", textAlign: "center" }}>
+    <div style={{ padding: "50px", textAlign: "center", }}>
+      <ResponsiveAppBar />
       <DonationCard onDonate={handlePayment} amount={amount} setAmount={setAmount}/>
      
       <PaymentList />
