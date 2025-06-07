@@ -30,6 +30,7 @@ const Payment = () => {
 
   return (
     <Container maxWidth="md" style={{ padding: "40px 0", textAlign: "center" }}>
+      <h2 style={{ marginTop: "50px" }}>💳 Payment History</h2>
       <TableContainer component={Paper} style={{ marginTop: 20 }}>
         <Table>
           <TableHead>

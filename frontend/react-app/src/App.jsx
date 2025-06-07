@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import PaymentList from "./components/Payment";
+import DonationCard from "./components/DonationCard";
 
 function App() {
   const [amount, setAmount] = useState("");
@@ -73,17 +74,8 @@ function App() {
 
   return (
     <div style={{ padding: "50px", textAlign: "center" }}>
-      <h1>Razorpay Payment Test</h1>
-      <input
-        type="number"
-        value={amount}
-        placeholder="Enter amount (₹)"
-        onChange={(e) => setAmount(e.target.value)}
-        style={{ padding: "10px", marginBottom: "20px" }}
-      />
-      <br />
-      <button onClick={handlePayment}>Pay ₹{amount || "..."}</button>
-      <h2 style={{ marginTop: "50px" }}>💳 Payment History</h2>
+      <DonationCard onDonate={handlePayment} amount={amount} setAmount={setAmount}/>
+     
       <PaymentList />
     </div>
   );
