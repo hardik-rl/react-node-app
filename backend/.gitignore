@@ -1,0 +1,22 @@
+# Node modules (both frontend and backend)
+node_modules/
+
+# Frontend build files
+client/build/
+client/node_modules/
+
+# Backend node modules
+server/node_modules/
+
+# Environment files
+.env
+
+# Ignore frontend
+/client
+
+# Ignore backend
+/server
+
+# IDE files
+.vscode/
+.DS_Store
