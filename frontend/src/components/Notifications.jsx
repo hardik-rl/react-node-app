@@ -8,8 +8,11 @@ import {
   Divider,
 } from "@mui/material";
 import NotificationsIcon from "@mui/icons-material/Notifications";
+import { useChat } from "../../hook/ChatContext";
 
 const NotificationMenu = () => {
+  const { messages } = useChat();
+
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 
@@ -20,12 +23,6 @@ const NotificationMenu = () => {
     setAnchorEl(null);
   };
 
-  const notifications = [
-    "New message from Alice",
-    "Server maintenance at 9 PM",
-    "New comment on your post",
-  ];
-
   return (
     <>
       <IconButton
@@ -33,9 +30,9 @@ const NotificationMenu = () => {
         aria-label="show new notifications"
         color="inherit"
         onClick={handleOpen}
-        sx={{mr: 1.5}}
+        sx={{ mr: 1.5 }}
       >
-        <Badge badgeContent={notifications.length} color="error">
+        <Badge badgeContent={messages.length} color="error">
           <NotificationsIcon />
         </Badge>
       </IconButton>
@@ -54,12 +51,12 @@ const NotificationMenu = () => {
           <strong>Notifications</strong>
         </MenuItem>
         <Divider />
-        {notifications.length === 0 ? (
+        {messages.length === 0 ? (
           <MenuItem>No new notifications</MenuItem>
         ) : (
-          notifications.map((note, index) => (
+          messages.map((note, index) => (
             <MenuItem key={index} onClick={handleClose}>
-              <ListItemText primary={note} />
+              <ListItemText primary={note.text} />
             </MenuItem>
           ))
         )}

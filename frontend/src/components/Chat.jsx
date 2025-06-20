@@ -1,24 +1,31 @@
+import { Button } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import io from "socket.io-client";
+import { useChat } from "../../hook/ChatContext";
 
 const socket = io("http://localhost:5000");
 
 const Chat = () => {
   const [user, setUser] = useState("User1");
   const [message, setMessage] = useState("");
-  const [messages, setMessages] = useState([]);
+  const { messages, addMessage } = useChat();
+
 
   useEffect(() => {
-    const handleReceive = (data) => {
-      setMessages((prev) => [...prev, data]);
-    };
-
-    socket.on("receive_message", handleReceive);
-
-    return () => {
-      socket.off("receive_message", handleReceive);
-    };
+    if (Notification.permission !== "granted") {
+      Notification.requestPermission();
+    }
   }, []);
+
+  useEffect(() => {
+    socket.on("receive_message", (data) => {
+      addMessage(data);
+    });
+
+    return () => socket.off("receive_message");
+  }, []);
+
+
   const sendMessage = () => {
     if (message.trim()) {
       const msgData = { sender: user, text: message };
@@ -54,7 +61,7 @@ const Chat = () => {
         onKeyDown={(e) => e.key === "Enter" && sendMessage()}
         style={{ width: "80%", padding: "10px" }}
       />
-      <button onClick={sendMessage} style={{ padding: "10px" }}>Send</button>
+      <Button variant="contained" onClick={sendMessage} style={{ padding: "10px", marginLeft: 10 }}>Send</Button>
     </div>
   );
 };
