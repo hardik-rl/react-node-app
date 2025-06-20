@@ -15,6 +15,7 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import { Badge } from '@mui/material';
 import { useNavigate } from "react-router-dom";
 import { useState } from 'react';
+import NotificationMenu from './Notifications';
 
 const menuList = ['donation', 'price', 'login', 'chat'];
 const settings = ['Profile', 'Logout'];
@@ -144,18 +145,7 @@ function ResponsiveAppBar() {
                         ))}
                     </Box>
                     <Box sx={{ flexGrow: 0, display: "flex" }}>
-                        <MenuItem>
-                            <IconButton
-                                size="large"
-                                aria-label="show 17 new notifications"
-                                color="inherit"
-                            >
-                                <Badge badgeContent={17} color="error">
-                                    <NotificationsIcon />
-                                </Badge>
-                            </IconButton>
-                            <p>Notifications</p>
-                        </MenuItem>
+                       <NotificationMenu />
 
                         <Tooltip title="Open settings">
                             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
