@@ -1,4 +1,3 @@
-import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -15,13 +14,14 @@ import AdbIcon from '@mui/icons-material/Adb';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import { Badge } from '@mui/material';
 import { useNavigate } from "react-router-dom";
+import { useState } from 'react';
 
-const pages = ['donation', 'price', 'login'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const menuList = ['donation', 'price', 'login', 'chat'];
+const settings = ['Profile', 'Logout'];
 
 function ResponsiveAppBar() {
-    const [anchorElNav, setAnchorElNav] = React.useState(null);
-    const [anchorElUser, setAnchorElUser] = React.useState(null);
+    const [anchorElNav, setAnchorElNav] = useState(null);
+    const [anchorElUser, setAnchorElUser] = useState(null);
 
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
@@ -104,7 +104,7 @@ function ResponsiveAppBar() {
                                 <p>Notifications</p>
                             </MenuItem>
 
-                            {pages.map((page) => (
+                            {menuList.map((page) => (
                                 <MenuItem key={page} onClick={handleCloseNavMenu}>
                                     <Typography sx={{ textAlign: 'center' }}>{page}</Typography>
                                 </MenuItem>
@@ -130,28 +130,40 @@ function ResponsiveAppBar() {
                     >
                         LOGO
                     </Typography>
-                    <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-                        {pages.map((page) => (
+                    <Box sx={{ flexGrow: 1, display: 'flex' }}>
+
+                        {menuList.map((page) => (
                             <Button
                                 key={page}
                                 onClick={() => navigate(page)}
                                 // onClick={handleCloseNavMenu}
                                 sx={{ my: 2, color: 'white', display: 'block' }}
                             >
-                                {console.log(page, "page")
-                                }
                                 {page}
                             </Button>
                         ))}
                     </Box>
-                    <Box sx={{ flexGrow: 0 }}>
+                    <Box sx={{ flexGrow: 0, display: "flex" }}>
+                        <MenuItem>
+                            <IconButton
+                                size="large"
+                                aria-label="show 17 new notifications"
+                                color="inherit"
+                            >
+                                <Badge badgeContent={17} color="error">
+                                    <NotificationsIcon />
+                                </Badge>
+                            </IconButton>
+                            <p>Notifications</p>
+                        </MenuItem>
+
                         <Tooltip title="Open settings">
                             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                                 <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
                             </IconButton>
                         </Tooltip>
                         <Menu
-                            sx={{ mt: '45px' }}
+                            sx={{ mt: '45px', outline: "none" }}
                             id="menu-appbar"
                             anchorEl={anchorElUser}
                             anchorOrigin={{

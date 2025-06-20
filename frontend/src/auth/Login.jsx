@@ -58,13 +58,13 @@ const Login = () => {
               variant="contained"
               color="primary"
               fullWidth
-              onClick={handleLogin}
+              // onClick={handleLogin}
             >
               Login
             </Button>
-            <Typography variant="body2" align="center">
+            {/* <Typography variant="body2" align="center">
               Don't have an account? <a href="/signup">Sign up</a>
-            </Typography>
+            </Typography> */}
           </Box>
         </CardContent>
       </Card>
