@@ -22,8 +22,8 @@ const menuList = ['donation', 'price', 'login', 'chat'];
 const settings = ['Profile', 'Logout'];
 
 function ResponsiveAppBar() {
-    const { logout } = useAuth();
-    
+    const { logout, user } = useAuth();
+
     const [anchorElNav, setAnchorElNav] = useState(null);
     const [anchorElUser, setAnchorElUser] = useState(null);
 
@@ -38,13 +38,14 @@ function ResponsiveAppBar() {
         setAnchorElNav(null);
     };
 
-    const handleCloseUserMenu = () => {
+    const handleCloseUserMenu = (setting) => {
         setAnchorElUser(null);
-        logout();
+        if (setting === 'Logout') {
+            logout();
+        }
     };
 
     let navigate = useNavigate();
-
 
     return (
         <AppBar position="static">
@@ -149,11 +150,13 @@ function ResponsiveAppBar() {
                         ))}
                     </Box>
                     <Box sx={{ flexGrow: 0, display: "flex" }}>
-                       <NotificationMenu />
+                        <NotificationMenu />
 
                         <Tooltip title="Open settings">
                             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                                <Avatar alt={user?.email}>
+                                    {user?.email?.[0]?.toUpperCase()}
+                                </Avatar>
                             </IconButton>
                         </Tooltip>
                         <Menu
@@ -173,11 +176,12 @@ function ResponsiveAppBar() {
                             onClose={handleCloseUserMenu}
                         >
 
-                            {settings.map((setting) => (
-                                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                                    <Typography sx={{ textAlign: 'center' }}>{setting}</Typography>
-                                </MenuItem>
-                            ))}
+                            {user?.email && <MenuItem onClick={() => handleCloseUserMenu("Profile")}>
+                                <Typography sx={{ textAlign: 'center' }}>{user?.email}</Typography>
+                            </MenuItem>}
+                            <MenuItem onClick={() => handleCloseUserMenu("Logout")}>
+                                <Typography sx={{ textAlign: 'center' }}>Logout</Typography>
+                            </MenuItem>
                         </Menu>
                     </Box>
                 </Toolbar>
