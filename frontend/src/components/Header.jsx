@@ -16,11 +16,14 @@ import { Badge } from '@mui/material';
 import { useNavigate } from "react-router-dom";
 import { useState } from 'react';
 import NotificationMenu from './Notifications';
+import { useAuth } from '../../context/AuthContext';
 
 const menuList = ['donation', 'price', 'login', 'chat'];
 const settings = ['Profile', 'Logout'];
 
 function ResponsiveAppBar() {
+    const { logout } = useAuth();
+    
     const [anchorElNav, setAnchorElNav] = useState(null);
     const [anchorElUser, setAnchorElUser] = useState(null);
 
@@ -37,6 +40,7 @@ function ResponsiveAppBar() {
 
     const handleCloseUserMenu = () => {
         setAnchorElUser(null);
+        logout();
     };
 
     let navigate = useNavigate();

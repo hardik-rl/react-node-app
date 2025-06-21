@@ -9,26 +9,36 @@ import {
   Box
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext';
 
 const Login = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleLogin = () => {
-    // Add your login logic here
-    console.log({ email, password });
+  const { login } = useAuth();
 
-    // Redirect after login (example)
-    navigate('/dashboard');
+  const handleLogin = async () => {
+    const res = await fetch("http://localhost:5000/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password: password }),
+    });
+
+    if (res.status === 200) {      
+      login({ email: email });
+      navigate("/");
+    } else {
+      console.log("error");
+    }
   };
+
 
   return (
     <Box
       display="flex"
       justifyContent="center"
       alignItems="center"
-      // minHeight="100vh"
       paddingY={15}
       bgcolor="#f5f5f5"
     >
@@ -54,17 +64,18 @@ const Login = () => {
               value={password}
               onChange={e => setPassword(e.target.value)}
             />
+
             <Button
               variant="contained"
               color="primary"
               fullWidth
-              // onClick={handleLogin}
+              onClick={handleLogin}
             >
               Login
             </Button>
-            {/* <Typography variant="body2" align="center">
-              Don't have an account? <a href="/signup">Sign up</a>
-            </Typography> */}
+            <Typography variant="body2" align="center">
+              Don't have an account? <a href="/register">Sign up</a>
+            </Typography>
           </Box>
         </CardContent>
       </Card>

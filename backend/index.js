@@ -10,9 +10,23 @@ app.use(express.json());
 
 const paymentRoutes = require("./routes/paymentRoutes");
 app.use("/", paymentRoutes);
+const authRoutes = require("./routes/auth");
+const { default: mongoose } = require("mongoose");
+app.use("/", authRoutes);
 
 const server = http.createServer(app);
 
+// Mongo Connect
+mongoose
+  .connect("mongodb://localhost:27017/React-Node-App", {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => console.log("✅ MongoDB connected"))
+  .catch((err) => console.error("MongoDB connection error:", err));
+
+
+  // Socket Io
 const io = socketIO(server, {
   cors: {
     origin: "http://localhost:5173",
