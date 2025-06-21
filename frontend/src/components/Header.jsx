@@ -97,7 +97,7 @@ function ResponsiveAppBar() {
                                 onClick={() => navigate("price")}
                                 sx={{ my: 2, color: 'white', display: 'block' }}
                             >
-                                Price
+                                Payment
                             </Button>
                             <Button
                                 onClick={() => navigate("chat")}

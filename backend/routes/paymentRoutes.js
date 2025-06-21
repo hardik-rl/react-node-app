@@ -1,5 +1,6 @@
 const express = require("express");
 const Razorpay = require("razorpay");
+const Payment = require("../models/Payment");
 
 const router = express.Router();
 
@@ -35,16 +36,41 @@ router.post("/order", async (req, res) => {
  * @route POST /api/payment-success
  * @desc Store payment after success
  */
-router.post("/payment-success", (req, res) => {
+// router.post("/payment-success", (req, res) => {
+//   const { paymentId, amount } = req.body;
+
+//   paymentList.push({
+//     id: paymentId,
+//     amount: amount / 100,
+//     date: new Date().toLocaleString()
+//   });
+
+//   res.json({ status: "success" });
+// });
+
+router.post("/payment-success", async (req, res) => {
   const { paymentId, amount } = req.body;
 
-  paymentList.push({
-    id: paymentId,
-    amount: amount / 100,
-    date: new Date().toLocaleString()
-  });
+  try {
+    const newPayment = new Payment({
+      paymentId,
+      amount: amount / 100
+    });
 
-  res.json({ status: "success" });
+    await newPayment.save();
+    res.json({ status: "success" });
+  } catch (error) {
+    res.status(500).json({ error: "Database Error" });
+  }
+});
+
+router.get("/payments", async (req, res) => {
+  try {
+    const payments = await Payment.find().sort({ date: -1 });
+    res.json(payments);
+  } catch (error) {
+    res.status(500).json({ error: "Could not fetch payments" });
+  }
 });
 
 /**

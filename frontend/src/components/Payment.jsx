@@ -13,13 +13,24 @@ import {
   Typography,
   Container,
 } from "@mui/material"
+import { toast } from 'react-toastify';
 
 const Payment = () => {
+  const formatDate = (isoDateString) => {
+    return new Date(isoDateString).toLocaleString("en-IN", {
+      day: "2-digit",
+      month: "long",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: true,
+      timeZone: "Asia/Kolkata"
+    });
+  };
   const [payments, setPayments] = useState([]);
 
   const fetchPayments = async () => {
     const res = await fetch("http://localhost:5000/payments");
-
     const data = await res.json();
     setPayments(data);
   };
@@ -43,9 +54,9 @@ const Payment = () => {
           <TableBody>
             {payments.map((p, index) => (
               <TableRow key={index}>
-                <TableCell>{p.id}</TableCell>
+                <TableCell>{p.paymentId}</TableCell>
                 <TableCell>{p.amount}</TableCell>
-                <TableCell>{p.date}</TableCell>
+                <TableCell>{formatDate(p.date)}</TableCell>
               </TableRow>
             ))}
           </TableBody>

@@ -7,6 +7,7 @@ import {
     Box,
 } from "@mui/material";
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 export default function DonationCard() {
     const [amount, setAmount] = useState("");
@@ -50,7 +51,7 @@ export default function DonationCard() {
             description: "Test Transaction",
             order_id: data.id,
             handler: async function (response) {
-                alert("Payment successful! ID: " + response.razorpay_payment_id);
+                // alert("Payment successful! ID: " + response.razorpay_payment_id);
 
                 // Store payment in backend
                 await fetch("http://localhost:5000/payment-success", {
@@ -61,7 +62,7 @@ export default function DonationCard() {
                         amount: data.amount,
                     }),
                 });
-
+                toast.success("Payment Verify Successfully!")
                 fetchPayments(); // Refresh payment list
             },
             prefill: {
