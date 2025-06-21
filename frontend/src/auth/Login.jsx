@@ -10,6 +10,7 @@ import {
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
+import { toast } from 'react-toastify';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -24,12 +25,13 @@ const Login = () => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password: password }),
     });
-
+    
     if (res.status === 200) {      
       login({ email: email });
+      toast.success("User Login Successfully!")
       navigate("/");
     } else {
-      console.log("error");
+      toast.error(res.statusText || "Failed to login")
     }
   };
 

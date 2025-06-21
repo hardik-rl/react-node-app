@@ -14,6 +14,7 @@ import { useNavigate } from "react-router-dom";
 import { useState } from 'react';
 import NotificationMenu from './Notifications';
 import { useAuth } from '../../context/AuthContext';
+import { toast } from 'react-toastify';
 
 function ResponsiveAppBar() {
     const { logout, user } = useAuth();
@@ -35,6 +36,7 @@ function ResponsiveAppBar() {
     const handleCloseUserMenu = (setting) => {
         setAnchorElUser(null);
         if (setting === 'Logout') {
+            toast.success("User Logout Successfully!")
             logout();
         }
     };
