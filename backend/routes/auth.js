@@ -51,7 +51,7 @@ router.get("/verify-email", async (req, res) => {
 
     user.verified = true;
     await user.save();
-res.send(`
+    res.send(`
   <!DOCTYPE html>
   <html>
     <head>
@@ -99,7 +99,49 @@ res.send(`
 
     // res.send("✅ Email verified! You can now log in.");
   } catch (err) {
-    res.status(400).send("❌ Invalid or expired token.");
+                                  res.status(400).send(` <!DOCTYPE html>
+  <html>
+    <head>
+      <title>Email Verified</title>
+      <style>
+        body {
+          font-family: Arial, sans-serif;
+          background-color: #f0f2f5;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 100vh;
+        }
+        .box {
+          background: white;
+          padding: 30px;
+          border-radius: 10px;
+          box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+          text-align: center;
+        }
+        .emoji {
+          font-size: 28px;
+        }
+        .btn {
+          margin-top: 20px;
+          display: inline-block;
+          padding: 10px 20px;
+          background: #4caf50;
+          color: white;
+          text-decoration: none;
+          border-radius: 6px;
+        }
+      </style>
+    </head>
+    <body>
+      <div class="box">
+        <div class="emoji">❌</div>
+        <h2>Email Can't be Verified!</h2>
+        <p>Invalid or expired token.</p>
+        <a class="btn" href="http://localhost:5173/login">Go to Login</a>
+      </div>
+    </body>
+  </html>`);
   }
 });
 
@@ -124,9 +166,9 @@ router.post("/login", async (req, res) => {
       return res.status(401).json({ error: "Invalid credentials." });
     }
 
-if (!user.verified) {
-  return res.status(403).json({ error: "Please verify your email first" });
-}
+    if (!user.verified) {
+      return res.status(403).json({ error: "Please verify your email first" });
+    }
     res.status(200).json({ message: "Login successful", email: user.email });
   } catch (err) {
     console.error("Login error:", err);

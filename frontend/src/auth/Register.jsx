@@ -1,4 +1,4 @@
-import { Button, TextField } from "@mui/material";
+import { Box, Button, Card, CardContent, CardHeader, TextField } from "@mui/material";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -25,29 +25,45 @@ const Register = () => {
   };
 
   return (
-    <div style={{ padding: "2rem", maxWidth: 600, margin: "auto" }}>
-      <h2>Register</h2>
-      <div>
-        <TextField
-          type="email"
-          required
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          sx={{ marginBottom: 3, width: "100%", padding: 1 }}
+    <Box
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
+      paddingY={5}
+      minHeight={500}
+      bgcolor="#f5f5f5"
+    >
+      <Card sx={{ width: 360, p: 2, boxShadow: 3 }}>
+        <CardHeader
+          title="Register"
+          titleTypographyProps={{ variant: 'h5', align: 'center', fontWeight: "600" }}
         />
-      </div>
-      <div>
-        <TextField
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          sx={{ marginBottom: 3, width: "100%", padding: 1 }}
-        />
-        <Button variant="contained" onClick={handleRegister}>Register</Button>
-      </div>
-    </div>
+        <CardContent>
+            <div>
+              <TextField
+                type="email"
+                required
+                fullWidth
+                placeholder="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                sx={{ marginBottom: 1, width: "100%", padding: 1 }}
+              />
+            </div>
+            <div>
+              <TextField
+                type="password"
+                fullWidth
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                sx={{ marginBottom: 1, width: "100%", padding: 1 }}
+              />
+              <Button variant="contained" onClick={handleRegister}>Register</Button>
+          </div>
+        </CardContent>
+      </Card>
+    </Box>
   );
 };
 

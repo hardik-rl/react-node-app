@@ -41,13 +41,14 @@ const Login = () => {
       display="flex"
       justifyContent="center"
       alignItems="center"
-      paddingY={15}
+      paddingY={5}
+      minHeight={500}
       bgcolor="#f5f5f5"
     >
       <Card sx={{ width: 360, p: 2, boxShadow: 3 }}>
         <CardHeader
           title="Login"
-          titleTypographyProps={{ variant: 'h5', align: 'center' }}
+          titleTypographyProps={{ variant: 'h5', align: 'center', fontWeight: "600" }}
         />
         <CardContent>
           <Box display="flex" flexDirection="column" gap={2}>
