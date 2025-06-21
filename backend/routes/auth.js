@@ -33,7 +33,7 @@ router.post("/register", async (req, res) => {
     from: process.env.EMAIL_USER,
     to: email,
     subject: "Verify your email",
-    html: `<p>Click <a href="${verificationLink}">here</a> to verify your email.</p>`,
+    html: `<p>Please verify your email by clicking here. <br/><br/> <a style="background-color: #4CAF50; color: white; padding: 10px 20px; text-decoration: none; border-radius: 4px;" href="${verificationLink}">Verify</a></p>`,
   });
 
   res.status(201).json({ message: "Registration successful. Please verify your email." });
@@ -51,8 +51,53 @@ router.get("/verify-email", async (req, res) => {
 
     user.verified = true;
     await user.save();
+res.send(`
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <title>Email Verified</title>
+      <style>
+        body {
+          font-family: Arial, sans-serif;
+          background-color: #f0f2f5;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 100vh;
+        }
+        .box {
+          background: white;
+          padding: 30px;
+          border-radius: 10px;
+          box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+          text-align: center;
+        }
+        .emoji {
+          font-size: 28px;
+        }
+        .btn {
+          margin-top: 20px;
+          display: inline-block;
+          padding: 10px 20px;
+          background: #4caf50;
+          color: white;
+          text-decoration: none;
+          border-radius: 6px;
+        }
+      </style>
+    </head>
+    <body>
+      <div class="box">
+        <div class="emoji">✅</div>
+        <h2>Email Verified!</h2>
+        <p>You can now log in to your account.</p>
+        <a class="btn" href="http://localhost:5173/login">Go to Login</a>
+      </div>
+    </body>
+  </html>
+`);
 
-    res.send("✅ Email verified! You can now log in.");
+    // res.send("✅ Email verified! You can now log in.");
   } catch (err) {
     res.status(400).send("❌ Invalid or expired token.");
   }
