@@ -74,7 +74,7 @@ const Login = () => {
               Login
             </Button>
             <Typography variant="body2" align="center">
-              Don't have an account? <a href="/register">Sign up</a>
+              Don't have an account? <a href="/register">Register</a>
             </Typography>
           </Box>
         </CardContent>
