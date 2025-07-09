@@ -10,7 +10,7 @@ export const ChatProvider = ({ children }) => {
   };
 
   return (
-    <ChatContext.Provider value={{ messages, addMessage }}>
+    <ChatContext.Provider value={{ messages, addMessage, setMessages  }}>
       {children}
     </ChatContext.Provider>
   );

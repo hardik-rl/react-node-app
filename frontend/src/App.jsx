@@ -9,6 +9,7 @@ import { ChatProvider } from "../context/ChatContext";
 import { useAuth } from "../context/AuthContext";
 import Register from "./auth/Register";
 import ProtectedRoute from "./components/ProtectedRoute";
+import Users from "./components/Users";
 
 function App() {
   const { user } = useAuth();
@@ -28,6 +29,7 @@ function App() {
             <Route path="/price" element={<PaymentList />} />
             <Route path="/donation" element={<DonationCard />} />
             <Route path="/chat" element={<Chat />} />
+            <Route path="/user" element={<Users />} />
           </Route>
 
         </Routes>

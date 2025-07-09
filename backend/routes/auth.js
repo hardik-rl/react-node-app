@@ -15,16 +15,17 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-// Sign Up
 router.post("/register", async (req, res) => {
-  const { email, password } = req.body;
+  const { name, email, password } = req.body;
 
-  if (!email || !password) return res.status(400).json({ error: "Missing fields" });
+  if (!name || !email || !password) {
+    return res.status(400).json({ error: "Missing fields" });
+  }
 
   const existing = await User.findOne({ email });
   if (existing) return res.status(409).json({ error: "Email already registered" });
 
-  const newUser = await User.create({ email, password });
+  const newUser = await User.create({ name, email, password });
 
   const token = jwt.sign({ email }, secretKey, { expiresIn: "15m" });
   const verificationLink = `http://localhost:5000/verify-email?token=${token}`;
@@ -38,6 +39,7 @@ router.post("/register", async (req, res) => {
 
   res.status(201).json({ message: "Registration successful. Please verify your email." });
 });
+
 
 // Verify Email
 router.get("/verify-email", async (req, res) => {
@@ -99,7 +101,7 @@ router.get("/verify-email", async (req, res) => {
 
     // res.send("✅ Email verified! You can now log in.");
   } catch (err) {
-                                  res.status(400).send(` <!DOCTYPE html>
+    res.status(400).send(` <!DOCTYPE html>
   <html>
     <head>
       <title>Email Verified</title>
@@ -129,7 +131,7 @@ router.get("/verify-email", async (req, res) => {
           background: #4caf50;
           color: white;
           text-decoration: none;
-          border-radius: 6px;
+          border-radius: 6px; 
         }
       </style>
     </head>

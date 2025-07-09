@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const Register = () => {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -12,7 +13,7 @@ const Register = () => {
     const res = await fetch("http://localhost:5000/register", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password }),
+      body: JSON.stringify({ name, email, password }),
     });
 
     const data = await res.json();
@@ -40,6 +41,17 @@ const Register = () => {
         />
         <CardContent>
             <div>
+              <TextField
+                type="text"
+                required
+                fullWidth
+                placeholder="Name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                sx={{ marginBottom: 1, width: "100%", padding: 1 }}
+              />
+            </div>
+             <div>
               <TextField
                 type="email"
                 required

@@ -105,6 +105,12 @@ function ResponsiveAppBar() {
                             >
                                 Chat
                             </Button>
+                            <Button
+                                onClick={() => navigate("user")}
+                                sx={{ my: 2, color: 'white', display: 'block' }}
+                            >
+                                User List
+                            </Button>
                         </> : <Button
                             onClick={() => navigate('login')}
                             sx={{ my: 2, color: 'white', display: 'block' }}

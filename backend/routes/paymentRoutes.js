@@ -9,13 +9,8 @@ const razorpay = new Razorpay({
   key_secret: "Zsco4GxCF8c3DrACjYi0jbb7",
 });
 
-// In-memory store for demo (use DB in production)
 let paymentList = [];
 
-/**
- * @route POST /api/order
- * @desc Create Razorpay order
- */
 router.post("/order", async (req, res) => {
   const { amount } = req.body;
   const options = {
@@ -31,23 +26,7 @@ router.post("/order", async (req, res) => {
     res.status(500).send(err);
   }
 });
-
-/**
- * @route POST /api/payment-success
- * @desc Store payment after success
- */
-// router.post("/payment-success", (req, res) => {
-//   const { paymentId, amount } = req.body;
-
-//   paymentList.push({
-//     id: paymentId,
-//     amount: amount / 100,
-//     date: new Date().toLocaleString()
-//   });
-
-//   res.json({ status: "success" });
-// });
-
+// payment success
 router.post("/payment-success", async (req, res) => {
   const { paymentId, amount } = req.body;
 
@@ -73,10 +52,7 @@ router.get("/payments", async (req, res) => {
   }
 });
 
-/**
- * @route GET /api/payments
- * @desc Get all payments
- */
+// Payment list
 router.get("/payments", (req, res) => {
   res.json(paymentList);
 });
