@@ -13,7 +13,7 @@ import AdbIcon from '@mui/icons-material/Adb';
 import { useNavigate } from "react-router-dom";
 import { useState } from 'react';
 import NotificationMenu from './Notifications';
-import { useAuth } from '../../context/AuthContext';
+import { useAuth } from '../context/AuthContext';
 import { toast } from 'react-toastify';
 
 function ResponsiveAppBar() {

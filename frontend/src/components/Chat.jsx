@@ -1,7 +1,7 @@
 import { Button } from "@mui/material";
 // import React, { useState, useEffect } from "react";
 import io from "socket.io-client";
-import { useChat } from "../../context/ChatContext";
+import { useChat } from "../context/ChatContext";
 
 import { useEffect } from "react";
 import { useState } from "react";

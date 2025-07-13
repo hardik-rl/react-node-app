@@ -5,8 +5,8 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import Home from "./components/Home";
 import Login from "./auth/Login";
 import Chat from "./components/Chat";
-import { ChatProvider } from "../context/ChatContext";
-import { useAuth } from "../context/AuthContext";
+import { ChatProvider } from "./context/ChatContext";
+import { useAuth } from "./context/AuthContext";
 import Register from "./auth/Register";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Users from "./components/Users";
@@ -19,7 +19,7 @@ function App() {
       <div style={{ padding: "20px", textAlign: "center", }}>
         <ResponsiveAppBar />
         <Routes>
-          <Route path="/register" element={<Register />} />
+          <Route path="/register" element={user ? <Navigate to="/" /> : <Register />} />
           <Route path="/login" element={user ? <Navigate to="/" /> : <Login />} />
           <Route path="*" element={<Navigate to="/" />} />
 

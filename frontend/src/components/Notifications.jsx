@@ -8,7 +8,7 @@ import {
   Divider,
 } from "@mui/material";
 import NotificationsIcon from "@mui/icons-material/Notifications";
-import { useChat } from "../../context/ChatContext";
+import { useChat } from "../context/ChatContext";
 
 const NotificationMenu = () => {
   const { messages } = useChat();
